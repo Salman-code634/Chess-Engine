@@ -1,1 +1,21 @@
+# Executable files
 *.exe
+*.out
+
+#Object Files
+*.o
+*.obj
+
+#Shared Objects
+*.dll
+*.so
+
+# Debug
+*.pdb
+
+# OS files
+.DS_Store
+
+# Build folders
+build/
+bin/
