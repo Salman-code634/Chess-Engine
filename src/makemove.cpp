@@ -197,4 +197,75 @@ int MakeMove(s_Board *pos, int move)
         HASH_EP;
     }
     HASH_CA;
+
+    pos->history[pos->hisPly].move = move;
+    pos->history[pos->hisPly].fiftyMove = pos->fiftyMove;
+    pos->history[pos->hisPly].enPas = pos->enPas;
+    pos->history[pos->hisPly].castlePerm = pos->castlePerm;
+
+    pos->castlePerm &= CastlePerm[from];
+    pos->castlePerm &= CastlePerm[to];
+
+    pos->enPas = NO_SQ;
+
+    HASH_CA;
+
+    int captured = CAPTURED(move);
+    pos->fiftyMove++;
+
+    if (captured != EMPTY)
+    {
+        ASSERT(PieceValid(captured));
+        ClearPiece(to, pos);
+        pos->fiftyMove = 0;
+    }
+
+    pos->hisPly++;
+    pos->ply++;
+
+    if (PiecePawn[pos->pieces[from]])
+    {
+        pos->fiftyMove = 0;
+        if (move & MFLAGPS)
+        {
+            if (side == WHITE)
+            {
+                pos->enPas = from + 10;
+                ASSERT(RanksBrd[pos->enPas] == RANK_3);
+            }
+            else
+            {
+                pos->enPas = from - 10;
+                ASSERT(RanksBrd[pos->enPas] == RANK_6);
+            }
+            HASH_EP;
+        }
+    }
+
+    MovePiece(from, to, pos);
+
+    int prPce = PROMOTED(move);
+    if (prPce != EMPTY)
+    {
+        ASSERT(PieceValid(prPce) && !PiecePawn[prPce]);
+        ClearPiece(to, pos);
+        AddPiece(to, pos, prPce);
+    }
+
+    if (PieceKing[pos->pieces[to]])
+    {
+        pos->kingSq[pos->side] = to;
+    }
+
+    pos->side ^= 1;
+    HASH_SIDE;
+
+    ASSERT(CheckBoard(pos));
+
+    if (SqAttacked(pos->kingSq[side], pos->side, pos))
+    {
+        // TakeMove(pos);
+        return FALSE;
+    }
+    return TRUE;
 }
