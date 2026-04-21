@@ -29,6 +29,8 @@ U64 GeneratePosKey(const s_Board *pos)
     if (pos->enPas != NO_SQ)
     {
         ASSERT(pos->enPas >= 0 && pos->enPas < BRD_SQ_NUM);
+        ASSERT(SqOnBoard(pos->enPas));
+		ASSERT(RanksBrd[pos->enPas] == RANK_3 || RanksBrd[pos->enPas] == RANK_6);
         finalKey ^= PieceKeys[EMPTY][pos->enPas];
     }
 
