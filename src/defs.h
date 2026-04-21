@@ -238,4 +238,7 @@ extern void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list);
 //makemove.cpp
 extern int MakeMove(s_Board *pos, int move);
 extern void TakeMove(s_Board *pos);
+
+//perft.cpp
+
 #endif

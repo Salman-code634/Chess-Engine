@@ -136,7 +136,7 @@ static void MovePiece(const int from, const int to, s_Board *pos)
             pos->pList[pce][index] = to;
 
 #ifdef DEBUG
-            int t_PieceNum = TRUE;
+            t_PieceNum = TRUE;
 #endif
             break;
         }

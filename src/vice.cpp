@@ -3,8 +3,7 @@
 #include "defs.h"
 using std::cout;
 
-#define CASTLE1 "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
-#define CASTLE2 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+#define PERFTFEN "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
 int main()
 {
@@ -13,11 +12,30 @@ int main()
     s_Board board[1];
     s_MOVELIST list[1];
 
-    ParseFen(CASTLE2, board);
+    ParseFen(Start_FEN, board);
     GenerateAllMoves(board, list);
 
+    int MoveNum = 0;
+    int move = 0;
 
-    PrintMoveList(list);
+    PrintBoard(board);
+    getchar();
+
+    for (MoveNum = 0; MoveNum < list->count; MoveNum++)
+    {
+        move = list->moves[MoveNum].move;
+        if (!MakeMove(board, move))
+        {
+            continue;
+        }
+        cout << "\nMade : " << PrMove(move) << "\n";
+        PrintBoard(board);
+
+        TakeMove(board);
+        cout << "\nTaken : " << PrMove(move) << "\n";
+        PrintBoard(board);
+        getchar();
+    }
 
     return 0;
 }
