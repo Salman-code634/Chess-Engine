@@ -12,8 +12,8 @@ int main()
     s_Board board[1];
     s_MOVELIST list[1];
 
-    ParseFen(Start_FEN, board);
-    PerftTest(3, board);
+    ParseFen(PERFTFEN, board);
+    PerftTest(4, board);
 
     
 

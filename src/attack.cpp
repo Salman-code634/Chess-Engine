@@ -35,7 +35,8 @@ int SqAttacked(const int sq, const int side, const s_Board *pos)
     for (index = 0; index < 8; index++)
     {
         pce = pos->pieces[sq + KnDir[index]];
-        if (IsKn(pce) && PieceCol[pce] == side)
+        ASSERT(PceValidEmptyOffbrd(pce));
+        if (pce != OFFBOARD && IsKn(pce) && PieceCol[pce] == side)
         {
             return TRUE;
         }
@@ -47,6 +48,7 @@ int SqAttacked(const int sq, const int side, const s_Board *pos)
         dir = RkDir[index];
         t_sq = sq + dir;
         pce = pos->pieces[t_sq];
+        ASSERT(PceValidEmptyOffbrd(pce));
         while (pce != OFFBOARD)
         {
             if (pce != EMPTY)
@@ -68,6 +70,7 @@ int SqAttacked(const int sq, const int side, const s_Board *pos)
         dir = BiDir[index];
         t_sq = sq + dir;
         pce = pos->pieces[t_sq];
+        ASSERT(PceValidEmptyOffbrd(pce));
         while (pce != OFFBOARD)
         {
             if (pce != EMPTY)
@@ -87,7 +90,8 @@ int SqAttacked(const int sq, const int side, const s_Board *pos)
     for (index = 0; index < 8; index++)
     {
         pce = pos->pieces[sq + KiDir[index]];
-        if (IsKi(pce) && PieceCol[pce] == side)
+        ASSERT(PceValidEmptyOffbrd(pce));
+        if (pce != OFFBOARD && IsKi(pce) && PieceCol[pce] == side)
         {
             return TRUE;
         }

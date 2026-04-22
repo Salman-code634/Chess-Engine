@@ -62,3 +62,7 @@ int PieceValid(const int pce)
     }
 }
 
+int PceValidEmptyOffbrd(const int pce) {
+	return (PieceValidEmpty(pce) || pce == OFFBOARD);
+}
+

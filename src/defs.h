@@ -6,6 +6,7 @@
 #include <cstdlib>
 
 #define DEBUG
+
 #ifndef DEBUG
 #define ASSERT
 #else
@@ -231,6 +232,7 @@ extern int SideValid(const int side);
 extern int FileRankValid(const int fr);
 extern int PieceValidEmpty(const int pce);
 extern int PieceValid(const int pce);
+extern int PceValidEmptyOffbrd(const int pce);
 
 //movegen.cpp
 extern void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list);
