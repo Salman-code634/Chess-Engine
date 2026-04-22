@@ -13,29 +13,9 @@ int main()
     s_MOVELIST list[1];
 
     ParseFen(Start_FEN, board);
-    GenerateAllMoves(board, list);
+    PerftTest(3, board);
 
-    int MoveNum = 0;
-    int move = 0;
-
-    PrintBoard(board);
-    getchar();
-
-    for (MoveNum = 0; MoveNum < list->count; MoveNum++)
-    {
-        move = list->moves[MoveNum].move;
-        if (!MakeMove(board, move))
-        {
-            continue;
-        }
-        cout << "\nMade : " << PrMove(move) << "\n";
-        PrintBoard(board);
-
-        TakeMove(board);
-        cout << "\nTaken : " << PrMove(move) << "\n";
-        PrintBoard(board);
-        getchar();
-    }
+    
 
     return 0;
 }

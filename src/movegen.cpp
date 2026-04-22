@@ -142,7 +142,7 @@ void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list)
     if (side == WHITE)
     {
 
-        //Pawns Move Generation
+        // Pawns Move Generation
         for (pceNum = 0; pceNum < pos->pceNum[wP]; pceNum++)
         {
             sq = pos->pList[wP][pceNum];
@@ -156,7 +156,7 @@ void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list)
                 }
             }
 
-            //Pawn capture Move
+            // Pawn capture Move
             if (!SQOFFBOARD(sq + 9) && PieceCol[pos->pieces[sq + 9]] == BLACK)
             {
                 AddWhitePawnCapMov(pos, sq, sq + 9, pos->pieces[sq + 9], list);
@@ -164,16 +164,19 @@ void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list)
 
             if (!SQOFFBOARD(sq + 11) && PieceCol[pos->pieces[sq + 11]] == BLACK)
             {
-                AddWhitePawnCapMov(pos, sq, sq + 9, pos->pieces[sq + 11], list);
+                AddWhitePawnCapMov(pos, sq, sq + 11, pos->pieces[sq + 11], list);
             }
 
-            if (sq + 9 == pos->enPas)
+            if (pos->enPas != NO_SQ)
             {
-                AddCaptureMove(pos, MOVE(sq, sq + 9, pos->pieces[sq + 9], EMPTY, MFLAGEP), list);
-            }
-            if (sq + 11 == pos->enPas)
-            {
-                AddCaptureMove(pos, MOVE(sq, sq + 11, pos->pieces[sq + 11], EMPTY, MFLAGEP), list);
+                if (sq + 9 == pos->enPas)
+                {
+                    AddEnPassantMove(pos, MOVE(sq, sq + 9, EMPTY, EMPTY, MFLAGEP), list);
+                }
+                if (sq + 11 == pos->enPas)
+                {
+                    AddEnPassantMove(pos, MOVE(sq, sq + 11, EMPTY, EMPTY, MFLAGEP), list);
+                }
             }
         }
 
@@ -222,16 +225,19 @@ void GenerateAllMoves(const s_Board *pos, s_MOVELIST *list)
 
             if (!SQOFFBOARD(sq - 11) && PieceCol[pos->pieces[sq - 11]] == WHITE)
             {
-                AddBlackPawnCapMov(pos, sq, sq - 9, pos->pieces[sq - 11], list);
+                AddBlackPawnCapMov(pos, sq, sq - 11, pos->pieces[sq - 11], list);
             }
 
-            if (sq - 9 == pos->enPas)
+            if (pos->enPas != NO_SQ)
             {
-                AddCaptureMove(pos, MOVE(sq, sq + 9, pos->pieces[sq - 9], EMPTY, MFLAGEP), list);
-            }
-            if (sq - 11 == pos->enPas)
-            {
-                AddCaptureMove(pos, MOVE(sq, sq + 11, pos->pieces[sq + 11], EMPTY, MFLAGEP), list);
+                if (sq - 9 == pos->enPas)
+                {
+                    AddEnPassantMove(pos, MOVE(sq, sq - 9, EMPTY, EMPTY, MFLAGEP), list);
+                }
+                if (sq - 11 == pos->enPas)
+                {
+                    AddEnPassantMove(pos, MOVE(sq, sq - 11, EMPTY, EMPTY, MFLAGEP), list);
+                }
             }
         }
 

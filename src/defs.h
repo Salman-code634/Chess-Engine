@@ -240,5 +240,6 @@ extern int MakeMove(s_Board *pos, int move);
 extern void TakeMove(s_Board *pos);
 
 //perft.cpp
+extern void PerftTest(int depth, s_Board *pos);
 
 #endif
